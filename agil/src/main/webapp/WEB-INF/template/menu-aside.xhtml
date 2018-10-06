@@ -1,0 +1,72 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:jsf="http://xmlns.jcp.org/jsf">
+
+	<aside class="sidebar  js-sidebar ">
+		<nav class="menu">
+			<div id='cssmenu'>
+			 
+				<ul>
+					<li>
+						<p:link href="/home.xhtml" id="home">
+							<i class="fa fa-fw fa-dashboard" />
+							Início
+						</p:link>
+					</li>
+
+					<li>
+						<p:link href="#" id="notificacoes">
+							<i class="fa fa-fw fa-bell" />
+							Notificações
+						</p:link>
+					</li>
+ 
+					<li class="has-sub">
+						<p:link href="">
+							<i class="fa  fa-fw  fa-desktop" />
+							Cadastrar
+							<i class="fa  fa-fw  fa-angle-down right" />
+						</p:link>
+
+						<ul>
+							<li >
+								<p:link href="/private/projeto/form.xhtml" >
+									<i class="fa fa-fw fa-inbox" />
+									Projeto
+								</p:link>
+							</li>							
+						</ul>
+					</li>
+
+					<li class="has-sub">
+						<p:link href="">
+							<i class="fa  fa-fw  fa-list-alt" />
+							Listar
+							<i class="fa  fa-fw  fa-angle-down right" />
+						</p:link>
+
+						<ul>
+							<li >
+								<p:link href="/private/projeto/list.xhtml" >
+									<i class="fa fa-fw fa-inbox" />
+									Projeto
+								</p:link>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<p:link href="/configuracao.xhtml" id="configuracao" >
+							<i class="fa fa-fw fa-cog" />
+							Configuracao
+						</p:link>
+					</li>
+					
+				</ul>
+			</div>
+		</nav>
+	</aside>
+</ui:composition>

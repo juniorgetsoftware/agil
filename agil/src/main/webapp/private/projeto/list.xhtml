@@ -1,0 +1,111 @@
+<ui:composition template="/WEB-INF/template/layout.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+	<f:metadata>
+		<f:event type="preRenderView" listener="#{projetoCtrl.listar()}" />
+	</f:metadata>
+
+	<ui:define name="page-name">
+		Cad. projetos
+	</ui:define>
+
+	<ui:define name="page-title">
+		Projetos
+	</ui:define>
+
+	<ui:define name="page-subtitle">
+		Manutenção de projetos
+	</ui:define>
+
+	<ui:define name="page-image">
+		<p:graphicImage library="img" name="box-full.svg" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<h:form prependId="false">
+
+			<div class="ui-g-12 ui-g-nopad">
+				<div class="ui-g-6 ui-lg-6 ui-md-6 ui-sm-12">
+					<div class=" pull-left">
+						<label>Buscar por: </label>
+						<div class="ui-inputgroup">
+							<p:inputText placeholder="Nome do projeto" />
+							<span class="ui-inputgroup-addon"> <p:commandLink>
+									<i class="fa fa-search fonte-dark-grey" />
+								</p:commandLink>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="pull-right ShowOnDesktop">
+					<p:button icon="fa fa-plus" value="Novo projeto"
+						title="Clique para cadastrar um novo projeto"
+						outcome="/private/projeto/form.xhtml" />
+				</div>
+			</div>
+
+			<div class="ui-fluid">
+
+				<div class="ui-g ui-nopad">
+					<p:growl id="msgs" closable="true" life="5000" />
+				</div>
+
+				<div class="ui-g-12">
+					<p:dataTable var="projeto" value="#{projetoCtrl.projetos}"
+						lazy="true" paginator="true"
+						emptyMessage="Nenhum registro foi encontrado" rows="25"
+						rowHover="true" sortBy="#{projeto.nome}"
+						paginatorPosition="bottom" paginatorAlwaysVisible="true"
+						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+						currentPageReportTemplate="({startRecord} - {endRecord} de {totalRecords}, página {currentPage} de {totalPages})"
+						rowsPerPageTemplate="25,50,100">
+
+						<p:column headerText="Status" styleClass="center icon-list"
+							colspan="1">
+							<p:commandLink action="#{projetoCtrl.alterarStatus()}"
+								update="@this" title="#{projeto.status.descricao}">
+								<f:setPropertyActionListener value="#{projeto}"
+									target="#{projetoCtrl.projeto}" />
+								<i class="fa #{projeto.status.icone}" style="#{projeto.status.cor}" />
+							</p:commandLink>
+						</p:column>
+
+						<p:column headerText="Nome" colspan="6">
+							<p:link outcome="/private/projeto/form.xhtml"
+								styleClass="my-link" title="Clique para editar este registro">
+								<f:param name="projeto" value="#{projeto.id}" />
+								#{projeto.nome}
+							</p:link>
+						</p:column>
+
+						<p:column headerText="Ações" colspan="2" priority="2"
+							styleClass="center">
+
+							<p:commandLink styleClass="my-link icon-list">
+								<i class="fa fa-refresh primary"></i>
+							</p:commandLink>
+
+							<p:commandLink styleClass="my-link icon-list">
+								<i class="fa fa-star secondary"></i>
+							</p:commandLink>
+
+							<p:commandLink styleClass="my-link icon-list">
+								<i class="fa fa-trash danger"></i>
+							</p:commandLink>
+
+						</p:column>
+
+					</p:dataTable>
+
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

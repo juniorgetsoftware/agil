@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	template="/WEB-INF/template/layout.xhtml">
+
+	<ui:define name="page-name">
+		Aluno
+	</ui:define>
+
+	<ui:define name="page-title">
+		Aluno
+	</ui:define>
+
+	<ui:define name="page-subtitle">
+		Manutenção de Alunos
+	</ui:define>
+
+	<ui:define name="page-image">
+		<p:graphicImage library="img" name="box-full.svg" />
+	</ui:define>
+
+	<ui:define name="content">
+		<p:focus for="projeto-nome" />
+
+		<h:form prependId="false">
+
+			<div class="ui-g-12 ">
+				<p:messages id="msgs" life="7000" showDetail="true"
+					showSummary="true" />
+			</div>
+
+			<div class="ui-fluid" jsf:id="group">
+
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label>Nome</label>
+						<p:inputText id="projeto-nome" value="#{projetoCtrl.projeto.nome}"
+							required="true" label="Nome" styleClass="form-control">
+							<p:clientValidator event="keyup" />
+						</p:inputText>
+						<p:message for="projeto-nome" />
+					</div>
+				</div>
+
+				<div class="ui-g-12 ui-g-nopad">
+					<div class="ui-g-3 ui-lg-3, ui-md-4, ui-sm-6"
+						jsf:rendered="#{projetoCtrl.projeto.id eq null}">
+						<p:commandButton value="Salvar" validateClient="true"
+							icon="fa fa-save" action="#{projetoCtrl.salvar()}" update="group" />
+					</div>
+
+					<div class="ui-g-3 ui-lg-3, ui-md-4, ui-sm-6"
+						jsf:rendered="#{projetoCtrl.projeto.id ne null}">
+						<p:commandButton value="Editar" validateClient="true"
+							icon="fa fa-refresh" action="#{projetoCtrl.editar()}"
+							styleClass="btn-green" update="group" />
+					</div>
+
+					<div class="ui-g-3 ui-lg-3, ui-md-4, ui-sm-6">
+						<p:button icon="fa fa-ban " value="Cancelar" styleClass="btn-red"
+							outcome="/home" />
+					</div>
+				</div>
+			</div>
+		</h:form>
+
+	</ui:define>
+</ui:composition>
