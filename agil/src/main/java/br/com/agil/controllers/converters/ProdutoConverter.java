@@ -11,32 +11,32 @@ import javax.faces.convert.FacesConverter;
 
 import org.apache.deltaspike.core.api.provider.BeanProvider;
 
-import br.com.agil.models.Projeto;
-import br.com.agil.services.ProjetoService;
+import br.com.agil.models.Produto;
+import br.com.agil.services.ProdutoService;
 
-@FacesConverter(forClass = Projeto.class)
-public class ProjetoConverter implements Converter {
+@FacesConverter(forClass = Produto.class)
+public class ProdutoConverter implements Converter {
 
-	private ProjetoService projetoService;
+	private ProdutoService produtoService;
 
-	public ProjetoConverter() {
-		projetoService = BeanProvider.getContextualReference(ProjetoService.class);
+	public ProdutoConverter() {
+		produtoService = BeanProvider.getContextualReference(ProdutoService.class);
 	}
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		Projeto projeto = null;
+		Produto produto = null;
 		if (isNotBlank(value)) {
-			projeto = projetoService.buscarPorId(new Long(value));
+			produto = produtoService.buscarPorId(new Long(value));
 		}
-		return projeto;
+		return produto;
 	}
 
 	@Override
 	public String getAsString(FacesContext context, UIComponent component, Object value) {
 		if (nonNull(value)) {
-			Projeto projeto = (Projeto) value;
-			return isNull(projeto.getId()) ? null : projeto.getId().toString();
+			Produto produto = (Produto) value;
+			return isNull(produto.getId()) ? null : produto.getId().toString();
 		}
 		return "";
 	}

@@ -6,19 +6,19 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 	<f:metadata>
-		<f:event type="preRenderView" listener="#{projetoCtrl.listar()}" />
+		<f:event type="preRenderView" listener="#{produtoCtrl.listar()}" />
 	</f:metadata>
 
 	<ui:define name="page-name">
-		Cad. projetos
+		Cad. produtos
 	</ui:define>
 
 	<ui:define name="page-title">
-		Projetos
+		Produtos
 	</ui:define>
 
 	<ui:define name="page-subtitle">
-		Manutenção de projetos
+		Manutenção de produtos
 	</ui:define>
 
 	<ui:define name="page-image">
@@ -34,7 +34,7 @@
 					<div class=" pull-left">
 						<label>Buscar por: </label>
 						<div class="ui-inputgroup">
-							<p:inputText placeholder="Nome do projeto" />
+							<p:inputText placeholder="Nome do produto" />
 							<span class="ui-inputgroup-addon"> <p:commandLink>
 									<i class="fa fa-search fonte-dark-grey" />
 								</p:commandLink>
@@ -44,9 +44,9 @@
 				</div>
 
 				<div class="pull-right ShowOnDesktop">
-					<p:button icon="fa fa-plus" value="Novo projeto"
-						title="Clique para cadastrar um novo projeto"
-						outcome="/private/projeto/form.xhtml" />
+					<p:button icon="fa fa-plus" value="Novo produto"
+						title="Clique para cadastrar um novo produto"
+						outcome="/private/produto/form.xhtml" />
 				</div>
 			</div>
 
@@ -57,30 +57,31 @@
 				</div>
 
 				<div class="ui-g-12">
-					<p:dataTable var="projeto" value="#{projetoCtrl.projetos}"
+					<p:dataTable var="produto" value="#{produtoCtrl.produtos}"
 						lazy="true" paginator="true"
 						emptyMessage="Nenhum registro foi encontrado" rows="25"
-						rowHover="true" sortBy="#{projeto.nome}"
+						rowHover="true" sortBy="#{produto.nome}"
 						paginatorPosition="bottom" paginatorAlwaysVisible="true"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
-						currentPageReportTemplate="({startRecord} - {endRecord} de {totalRecords}, página {currentPage} de {totalPages})"
+						currentPageReportTemplate="({startRecord} - {endRecord} de {totalRecords})"
 						rowsPerPageTemplate="25,50,100">
 
-						<p:column headerText="Status" styleClass="center icon-list"
-							colspan="1">
-							<p:commandLink action="#{projetoCtrl.alterarStatus()}"
-								update="@this" title="#{projeto.status.descricao}">
-								<f:setPropertyActionListener value="#{projeto}"
-									target="#{projetoCtrl.projeto}" />
-								<i class="fa #{projeto.status.icone}" style="#{projeto.status.cor}" />
+						<p:column headerText="Status" styleClass="center " colspan="1">
+
+							<p:commandLink action="#{produtoCtrl.alterarStatus()}"
+								update="@this" title="#{produto.status.descricao}"
+								styleClass="icon-list">
+								<f:setPropertyActionListener value="#{produto}"
+									target="#{produtoCtrl.produto}" />
+								<i class="fa #{produto.status.icone}" style="#{produto.status.cor}" />
 							</p:commandLink>
 						</p:column>
 
 						<p:column headerText="Nome" colspan="6">
-							<p:link outcome="/private/projeto/form.xhtml"
+							<p:link outcome="/private/produto/form.xhtml"
 								styleClass="my-link" title="Clique para editar este registro">
-								<f:param name="projeto" value="#{projeto.id}" />
-								#{projeto.nome}
+								<f:param name="produto" value="#{produto.id}" />
+								#{produto.nome}
 							</p:link>
 						</p:column>
 
@@ -102,10 +103,8 @@
 						</p:column>
 
 					</p:dataTable>
-
 				</div>
 			</div>
 		</h:form>
-
 	</ui:define>
 </ui:composition>

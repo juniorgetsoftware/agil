@@ -5,10 +5,10 @@ import javax.enterprise.context.ApplicationScoped;
 import org.apache.deltaspike.data.api.EntityRepository;
 import org.apache.deltaspike.data.api.Repository;
 
-import br.com.agil.models.Projeto;
+import br.com.agil.models.Produto;
 
 @Repository
 @ApplicationScoped
-public interface ProjetoRepository extends EntityRepository<Projeto, Long> {
+public interface ProdutoRepository extends EntityRepository<Produto, Long> {
 
 }

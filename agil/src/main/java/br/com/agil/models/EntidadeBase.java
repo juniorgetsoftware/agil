@@ -1,7 +1,7 @@
 package br.com.agil.models;
 
-import static br.com.agil.models.Status.ATIVO;
-import static br.com.agil.models.Status.INATIVO;
+import static br.com.agil.models.StatusRegistro.ATIVO;
+import static br.com.agil.models.StatusRegistro.INATIVO;
 
 import java.io.Serializable;
 
@@ -30,7 +30,7 @@ public class EntidadeBase implements Serializable {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status", nullable = false)
-	private Status status = ATIVO;
+	private StatusRegistro status = ATIVO;
 
 	public Long getId() {
 		return id;
@@ -40,11 +40,11 @@ public class EntidadeBase implements Serializable {
 		this.id = id;
 	}
 
-	public Status getStatus() {
+	public StatusRegistro getStatus() {
 		return status;
 	}
 
-	public void setStatus(Status status) {
+	public void setStatus(StatusRegistro status) {
 		this.status = status;
 	}
 

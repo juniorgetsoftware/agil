@@ -25,7 +25,7 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<p:focus for="projeto-nome" />
+		<p:focus for="produto-nome" />
 
 		<h:form prependId="false">
 
@@ -39,25 +39,25 @@
 				<div class="ui-g-12">
 					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
 						<label>Nome</label>
-						<p:inputText id="projeto-nome" value="#{projetoCtrl.projeto.nome}"
+						<p:inputText id="produto-nome" value="#{produtoCtrl.produto.nome}"
 							required="true" label="Nome" styleClass="form-control">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
-						<p:message for="projeto-nome" />
+						<p:message for="produto-nome" />
 					</div>
 				</div>
 
 				<div class="ui-g-12 ui-g-nopad">
 					<div class="ui-g-3 ui-lg-3, ui-md-4, ui-sm-6"
-						jsf:rendered="#{projetoCtrl.projeto.id eq null}">
+						jsf:rendered="#{produtoCtrl.produto.id eq null}">
 						<p:commandButton value="Salvar" validateClient="true"
-							icon="fa fa-save" action="#{projetoCtrl.salvar()}" update="group" />
+							icon="fa fa-save" action="#{produtoCtrl.salvar()}" update="group" />
 					</div>
 
 					<div class="ui-g-3 ui-lg-3, ui-md-4, ui-sm-6"
-						jsf:rendered="#{projetoCtrl.projeto.id ne null}">
+						jsf:rendered="#{produtoCtrl.produto.id ne null}">
 						<p:commandButton value="Editar" validateClient="true"
-							icon="fa fa-refresh" action="#{projetoCtrl.editar()}"
+							icon="fa fa-refresh" action="#{produtoCtrl.editar()}"
 							styleClass="btn-green" update="group" />
 					</div>
 

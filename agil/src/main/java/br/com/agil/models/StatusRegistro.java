@@ -1,11 +1,11 @@
 package br.com.agil.models;
 
-public enum Status {
+public enum StatusRegistro {
 	
 	ATIVO ("Ativo", "fa-check", "color:#30ab2e"),
 	INATIVO ("Inativo", "fa-ban", "color:#f77049");
 	
-	Status(String descricao, String icone, String cor){
+	StatusRegistro(String descricao, String icone, String cor){
 		this.descricao = descricao;
 		this.icone = icone;
 		this.cor = cor;
