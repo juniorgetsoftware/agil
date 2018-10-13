@@ -17,6 +17,8 @@ import br.com.agil.jsf.FacesUtil;
 import br.com.agil.jsf.Msgs;
 import br.com.agil.jsf.primefaces.LazyDataModel;
 import br.com.agil.models.Backlog;
+import br.com.agil.models.ROI;
+import br.com.agil.models.StatusBacklog;
 import br.com.agil.services.BacklogService;
 
 @Named
@@ -69,6 +71,14 @@ public class BacklogCtrl implements Serializable {
 		if (facesUtil.isNotPostback() || isNull(backlogs)) {
 			this.backlogs = new LazyDataModel<>(backlogService.getRepository());
 		}
+	}
+	
+	public StatusBacklog[] listarStatusBacklog() {
+		return StatusBacklog.values();
+	}
+
+	public ROI[] listarROI() {
+		return ROI.values();
 	}
 
 	public Backlog getBacklog() {

@@ -1,5 +1,6 @@
 package br.com.agil.models;
 
+import static br.com.agil.models.ROI.MEDIO;
 import static br.com.agil.models.StatusBacklog.NAO_ATRIBUIDO;
 
 import java.io.Serializable;
@@ -45,14 +46,16 @@ public class Backlog extends EntidadeBase implements Serializable {
 	private Produto produto;
 
 	@ManyToOne(targetEntity = Produto.class)
-	@JoinColumn(name = "sprint_id", nullable = false)
+	@JoinColumn(name = "sprint_id")
 	private Sprint sprint;
 
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = Tarefa.class, mappedBy = "backlog", orphanRemoval = true)
 	private List<Tarefa> tarefas;
 
-	private int valorAgregado;
+	@Enumerated(EnumType.STRING)
+	private ROI roi = MEDIO;
 
+	@Column(name = "tempo_estimado")
 	private int tempoEstimado;
 
 	@Enumerated(EnumType.STRING)
@@ -101,12 +104,12 @@ public class Backlog extends EntidadeBase implements Serializable {
 		this.sprint = sprint;
 	}
 
-	public int getValorAgregado() {
-		return valorAgregado;
+	public ROI getRoi() {
+		return roi;
 	}
 
-	public void setValorAgregado(int valorAgregado) {
-		this.valorAgregado = valorAgregado;
+	public void setRoi(ROI roi) {
+		this.roi = roi;
 	}
 
 	public int getTempoEstimado() {
@@ -116,4 +119,13 @@ public class Backlog extends EntidadeBase implements Serializable {
 	public void setTempoEstimado(int tempoEstimado) {
 		this.tempoEstimado = tempoEstimado;
 	}
+
+	public StatusBacklog getStatusBacklog() {
+		return statusBacklog;
+	}
+
+	public void setStatusBacklog(StatusBacklog statusBacklog) {
+		this.statusBacklog = statusBacklog;
+	}
+
 }

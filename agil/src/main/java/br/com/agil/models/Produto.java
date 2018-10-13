@@ -1,7 +1,7 @@
 package br.com.agil.models;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,7 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -34,22 +35,25 @@ public class Produto extends EntidadeBase implements Serializable {
 	@NotBlank
 	@Column(nullable = false)
 	private String nome;
-	
+
 	private String descricao;
 
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Backlog.class,  
-			mappedBy = "produto", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Backlog.class, mappedBy = "produto", orphanRemoval = true)
 	private List<Backlog> itensBacklog;
 
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Sprint.class,  
-			mappedBy = "produto", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Sprint.class, mappedBy = "produto", orphanRemoval = true)
 	private List<Sprint> sprints;
-	
-	@Transient//TODO implementar o uso de datas do java 8 
-	private LocalDateTime dataHoraInicio = LocalDateTime.now();
+
+	@Column(name = "data_inicio")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataInicio = new Date();
+
+	@Column(name = "data_termino")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataTermino;
 
 	//
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -82,12 +86,20 @@ public class Produto extends EntidadeBase implements Serializable {
 		this.sprints = sprints;
 	}
 
-	public LocalDateTime getDataHoraInicio() {
-		return dataHoraInicio;
+	public Date getDataInicio() {
+		return dataInicio;
 	}
 
-	public void setDataHoraInicio(LocalDateTime dataHoraInicio) {
-		this.dataHoraInicio = dataHoraInicio;
+	public void setDataInicio(Date dataInicio) {
+		this.dataInicio = dataInicio;
+	}
+
+	public Date getDataTermino() {
+		return dataTermino;
+	}
+
+	public void setDataTermino(Date dataTermino) {
+		this.dataTermino = dataTermino;
 	}
 
 }

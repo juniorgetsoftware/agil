@@ -769,3 +769,25 @@ h1, h2, h3, h4, h5 {
 .box {
     background: #c0ddf1;
 }
+
+.texto-exemplo {
+    display: inline-block !important;
+    font-size: 10px !important;
+    color: #777 !important;
+}
+
+.texto-exemplo:before {
+	content: " (" !important;
+}
+
+.texto-exemplo:after {
+	content: ") " !important;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container .ui-icon {
+    right: 20px !important;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-filter-container {
+    width: 100% !important;
+}

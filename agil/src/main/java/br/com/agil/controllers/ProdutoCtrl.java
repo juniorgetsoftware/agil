@@ -4,6 +4,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -33,6 +34,7 @@ public class ProdutoCtrl implements Serializable {
 	private Produto produto;
 
 	private LazyDataModel<Produto, Long> produtos;
+	private List<Produto> produtosList;
 
 	@Inject
 	private JsfMessage<Msgs> msgs;
@@ -71,6 +73,12 @@ public class ProdutoCtrl implements Serializable {
 		}
 	}
 
+	public void listarSemDemanda() {
+		if (facesUtil.isNotPostback() || isNull(produtosList)) {
+			this.produtosList = produtoService.listar();
+		}
+	}
+
 	public Produto getProduto() {
 		if (isNull(produto))
 			produto = new Produto();
@@ -91,6 +99,14 @@ public class ProdutoCtrl implements Serializable {
 
 	public boolean isEditando() {
 		return nonNull(getProduto()) && nonNull(getProduto().getId());
+	}
+
+	public List<Produto> getProdutosList() {
+		return produtosList;
+	}
+
+	public void setProdutosList(List<Produto> produtosList) {
+		this.produtosList = produtosList;
 	}
 
 }

@@ -8,6 +8,11 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	template="/WEB-INF/template/layout.xhtml">
 
+	<f:metadata>
+		<f:event listener="#{produtoCtrl.listarSemDemanda()}"
+			type="preRenderView"></f:event>
+	</f:metadata>
+
 	<ui:define name="page-name">
 		Sprint
 	</ui:define>
@@ -47,6 +52,79 @@
 					</div>
 				</div>
 
+				<div class="ui-g-12">
+					<div class="ui-g-4 ui-lg-4 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label for="sprint-produto">Produto</label>
+						<p:selectOneMenu id="sprint-produto"
+							value="#{sprintCtrl.sprint.produto}" filter="true"
+							filterMatchMode="contains" required="true">
+							<p:clientValidator event="keyup" />
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+							<f:selectItems value="#{produtoCtrl.produtosList}" var="produto"
+								itemLabel="#{produto.nome}" itemValue="#{produto}" />
+						</p:selectOneMenu>
+						<p:message for="sprint-produto" />
+					</div>
+				</div>
+
+				<div class="ui-g-2 ui-lg-2 ui-md-3 ui-sm-12 ">
+					<label>Data de início</label>
+					<p:calendar id="sprint-inicio"
+						value="#{sprintCtrl.sprint.dataTempoInicio}"
+						label="Data de início" required="true" pattern="dd/MM/yyyy">
+						<p:clientValidator event="keyup" />
+					</p:calendar>
+					<p:message for="sprint-inicio" />
+				</div>
+
+				<div class="ui-g-2 ui-lg-2 ui-md-3 ui-sm-12 ">
+					<label>Data de término</label>
+					<p:calendar id="sprint-termino"
+						value="#{sprintCtrl.sprint.dataTempoTermino}"
+						label="Data de término" pattern="dd/MM/yyyy">
+						<p:clientValidator event="keyup" />
+					</p:calendar>
+					<p:message for="sprint-termino" />
+				</div>
+
+				<div class="ui-g-12">
+					<label>Backlog da sprint</label>
+					<p:commandLink styleClass="icon-list add"
+						title="Clique para adicionar backlogs"
+						action="#{backlogCtrl.listar()}" process="@this"
+						oncomplete="PF('backlog-dlg').show()" update="backlog-dlg">
+						<i class="fa fa-plus"></i>
+					</p:commandLink>
+
+					<p:dataTable id="sprint-backlog" var="backlog"
+						value="#{sprintCtrl.sprint.backlogs}"
+						emptyMessage="Nenhum item foi adicionado">
+
+						<p:column headerText="Título" colspan="6">
+						#{backlog.titulo}
+					</p:column>
+
+						<p:column headerText="ROI" colspan="2" styleClass="center">
+						#{backlog.roi.descricao}
+					</p:column>
+
+						<p:column headerText="Estimativa" colspan="2" styleClass="center">
+						#{backlog.tempoEstimado}
+					</p:column>
+
+						<p:column headerText="#" colspan="1" styleClass="center">
+							<p:commandButton icon="fa fa-trash" styleClass="btn-red"
+								update="dlg-sprint-backlog sprint-backlog"
+								title="Clique para remover o item da sprint" process="@this">
+								<p:collector unique="true" value="#{backlog}"
+									removeFrom="#{sprintCtrl.sprint.backlogs}" />
+							</p:commandButton>
+						</p:column>
+
+					</p:dataTable>
+				</div>
+
+
 				<div class="ui-g-12 ui-g-nopad">
 					<div class="ui-g-2 ui-lg-2 ui-md-3 ui-sm-6"
 						jsf:rendered="#{sprintCtrl.sprint.id eq null}">
@@ -69,5 +147,51 @@
 			</div>
 		</h:form>
 
+		<h:form prependId="false">
+			<p:dialog id="backlog-dlg" header="Selecionar backlogs"
+				widgetVar="backlog-dlg" closeOnEscape="true" draggable="false"
+				resizable="false" modal="true" width="70%" showEffect="fade"
+				hideEffect="fade">
+
+				<p:dataTable var="backlog" value="#{backlogCtrl.backlogs}" rows="10"
+					rowHover="true" paginator="true" lazy="true"
+					id="dlg-sprint-backlog" emptyMessage="Nenhum item foi adicionado"
+					paginatorPosition="bottom" paginatorAlwaysVisible="false"
+					paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+
+					<p:column headerText="Título" colspan="6">
+						#{backlog.titulo}
+					</p:column>
+
+					<p:column headerText="ROI" colspan="2" styleClass="center">
+						#{backlog.roi.descricao}
+					</p:column>
+
+					<p:column headerText="Estimativa" colspan="2" styleClass="center">
+						#{backlog.tempoEstimado}
+					</p:column>
+
+					<p:column headerText="#" colspan="1" styleClass="center">
+						<p:commandButton icon="fa fa-check"
+							update="dlg-sprint-backlog sprint-backlog"
+							title="Clique para adicionar o item a sprint" process="@this"
+							rendered="#{not sprintCtrl.sprint.backlogs.contains(backlog)}">
+							<p:collector unique="true" value="#{backlog}"
+								addTo="#{sprintCtrl.sprint.backlogs}" />
+						</p:commandButton>
+
+						<p:commandButton icon="fa fa-trash" styleClass="btn-red"
+							update="dlg-sprint-backlog sprint-backlog"
+							title="Clique para remover o item da sprint" process="@this"
+							rendered="#{sprintCtrl.sprint.backlogs.contains(backlog)}">
+							<p:collector unique="true" value="#{backlog}"
+								removeFrom="#{sprintCtrl.sprint.backlogs}" />
+						</p:commandButton>
+
+					</p:column>
+				</p:dataTable>
+
+			</p:dialog>
+		</h:form>
 	</ui:define>
 </ui:composition>

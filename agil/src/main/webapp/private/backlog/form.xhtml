@@ -8,6 +8,11 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	template="/WEB-INF/template/layout.xhtml">
 
+	<f:metadata>
+		<f:event listener="#{produtoCtrl.listarSemDemanda()}"
+			type="preRenderView" />
+	</f:metadata>
+
 	<ui:define name="page-name">
 		Backlog
 	</ui:define>
@@ -38,14 +43,72 @@
 
 				<div class="ui-g-12">
 					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
-						<label>Nome</label>
-						<p:inputText id="backlog-nome" value="#{backlogCtrl.backlog.titulo}"
-							required="true" label="Nome" styleClass="form-control">
+						<label>Título</label>
+						<p:inputText id="backlog-nome"
+							value="#{backlogCtrl.backlog.titulo}" required="true"
+							label="Título">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="backlog-nome" />
 					</div>
 				</div>
+
+				<div class="ui-g-4 ui-lg-4 ui-md-8 ui-sm-12 ">
+					<label>Produto</label>
+					<p:selectOneMenu id="backlog-produto"
+						value="#{backlogCtrl.backlog.produto}" filter="true"
+						filterMatchMode="contains">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+						<f:selectItems value="#{produtoCtrl.produtosList}" var="produto"
+							itemLabel="#{produto.nome}" itemValue="#{produto}" />
+					</p:selectOneMenu>
+				</div>
+
+				<div class="ui-g-2 ui-lg-2 ui-md-4 ui-sm-12 ">
+					<label>Tempo estimado</label>
+					<p:inputText id="backlog-tempo-estimado"
+						value="#{backlogCtrl.backlog.tempoEstimado}" required="true"
+						label="Tempo estimado">
+						<p:clientValidator event="keyup" />
+					</p:inputText>
+					<p:message for="backlog-tempo-estimado" />
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12 ui-g-nopad">
+						<label>ROI</label>
+						<div class="texto-exemplo">Retorno sobre investimento</div>
+						<p:selectOneRadio value="#{backlogCtrl.backlog.roi}"
+							required="true" layout="responsive" columns="5">
+							<f:selectItems value="#{backlogCtrl.listarROI()}" var="roi"
+								itemLabel="#{roi.descricao}" itemValue="#{roi}" />
+						</p:selectOneRadio>
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-12 ui-lg-12 ui-md-12 ui-sm-12 ui-g-nopad">
+						<label>Status do backlog</label>
+						<p:selectOneRadio value="#{backlogCtrl.backlog.statusBacklog}"
+							required="true" layout="responsive" columns="5">
+							<f:selectItems value="#{backlogCtrl.listarStatusBacklog()}"
+								var="sb" itemLabel="#{sb.descricao}" itemValue="#{sb}" />
+						</p:selectOneRadio>
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label>Descrição</label>
+						<p:inputTextarea id="backlog-descricao"
+							value="#{backlogCtrl.backlog.descricao}" label="Descrição">
+							<p:clientValidator event="keyup" />
+						</p:inputTextarea>
+						<p:message for="backlog-descricao" />
+					</div>
+				</div>
+
+
 
 				<div class="ui-g-12 ui-g-nopad">
 					<div class="ui-g-2 ui-lg-2 ui-md-3 ui-sm-6"

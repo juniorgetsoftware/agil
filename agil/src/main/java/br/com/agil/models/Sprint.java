@@ -1,17 +1,20 @@
 package br.com.agil.models;
 
+import static java.util.Objects.isNull;
+
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -37,18 +40,20 @@ public class Sprint extends EntidadeBase implements Serializable {
 	@Column(nullable = false)
 	private String nome;
 
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Backlog.class)
+	@OneToMany(targetEntity = Backlog.class)
 	private List<Backlog> backlogs;
 
 	@ManyToOne(targetEntity = Produto.class)
 	@JoinColumn(name = "produto_id", nullable = false)
 	private Produto produto;
 
-	@Transient // TODO implementar o uso de datas do java 8
-	private LocalDateTime dataTempoInicio;
+	@Column(name = "data_inicio")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataTempoInicio;
 
-	@Transient // TODO implementar o uso de datas do java 8
-	private LocalDateTime dataTempoTermino;
+	@Column(name = "data_termino")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataTempoTermino;
 
 	//
 
@@ -61,6 +66,8 @@ public class Sprint extends EntidadeBase implements Serializable {
 	}
 
 	public List<Backlog> getBacklogs() {
+		if (isNull(backlogs))
+			backlogs = new ArrayList<>();
 		return backlogs;
 	}
 
@@ -76,19 +83,19 @@ public class Sprint extends EntidadeBase implements Serializable {
 		this.produto = produto;
 	}
 
-	public LocalDateTime getDataTempoInicio() {
+	public Date getDataTempoInicio() {
 		return dataTempoInicio;
 	}
 
-	public void setDataTempoInicio(LocalDateTime dataTempoInicio) {
+	public void setDataTempoInicio(Date dataTempoInicio) {
 		this.dataTempoInicio = dataTempoInicio;
 	}
 
-	public LocalDateTime getDataTempoTermino() {
+	public Date getDataTempoTermino() {
 		return dataTempoTermino;
 	}
 
-	public void setDataTempoTermino(LocalDateTime dataTempoTermino) {
+	public void setDataTempoTermino(Date dataTempoTermino) {
 		this.dataTempoTermino = dataTempoTermino;
 	}
 
