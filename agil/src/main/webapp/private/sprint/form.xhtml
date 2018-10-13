@@ -9,23 +9,23 @@
 	template="/WEB-INF/template/layout.xhtml">
 
 	<ui:define name="page-name">
-		Produto
+		Sprint
 	</ui:define>
 
 	<ui:define name="page-title">
-		Produto
+		Sprint
 	</ui:define>
 
 	<ui:define name="page-subtitle">
-		Manutenção de Produtos
+		Manutenção de Sprints
 	</ui:define>
 
 	<ui:define name="page-image">
-		<p:graphicImage library="img" name="box-in.svg" />
+		<p:graphicImage library="img" name="brick.svg" />
 	</ui:define>
 
 	<ui:define name="content">
-		<p:focus for="produto-nome" />
+		<p:focus for="sprint-nome" />
 
 		<h:form prependId="false">
 
@@ -39,25 +39,25 @@
 				<div class="ui-g-12">
 					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
 						<label>Nome</label>
-						<p:inputText id="produto-nome" value="#{produtoCtrl.produto.nome}"
+						<p:inputText id="sprint-nome" value="#{sprintCtrl.sprint.nome}"
 							required="true" label="Nome" styleClass="form-control">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
-						<p:message for="produto-nome" />
+						<p:message for="sprint-nome" />
 					</div>
 				</div>
 
 				<div class="ui-g-12 ui-g-nopad">
 					<div class="ui-g-2 ui-lg-2 ui-md-3 ui-sm-6"
-						jsf:rendered="#{produtoCtrl.produto.id eq null}">
+						jsf:rendered="#{sprintCtrl.sprint.id eq null}">
 						<p:commandButton value="Salvar" validateClient="true"
-							icon="fa fa-save" action="#{produtoCtrl.salvar()}" update="group" />
+							icon="fa fa-save" action="#{sprintCtrl.salvar()}" update="group" />
 					</div>
 
 					<div class="ui-g-2 ui-lg-2 ui-md-3 ui-sm-6"
-						jsf:rendered="#{produtoCtrl.produto.id ne null}">
+						jsf:rendered="#{sprintCtrl.sprint.id ne null}">
 						<p:commandButton value="Editar" validateClient="true"
-							icon="fa fa-refresh" action="#{produtoCtrl.editar()}"
+							icon="fa fa-refresh" action="#{sprintCtrl.editar()}"
 							styleClass="btn-green" update="group" />
 					</div>
 

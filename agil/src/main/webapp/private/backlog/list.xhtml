@@ -6,23 +6,23 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 	<f:metadata>
-		<f:event type="preRenderView" listener="#{produtoCtrl.listar()}" />
+		<f:event type="preRenderView" listener="#{backlogCtrl.listar()}" />
 	</f:metadata>
 
 	<ui:define name="page-name">
-		Cad. produtos
+		Cad. backlogs
 	</ui:define>
 
 	<ui:define name="page-title">
-		Produtos
+		Backlogs
 	</ui:define>
 
 	<ui:define name="page-subtitle">
-		Manutenção de produtos
+		Manutenção de backlogs
 	</ui:define>
 
 	<ui:define name="page-image">
-		<p:graphicImage library="img" name="box-in.svg" />
+		<p:graphicImage library="img" name="box-full.svg" />
 	</ui:define>
 
 	<ui:define name="content">
@@ -34,7 +34,7 @@
 					<div class=" pull-left">
 						<label>Buscar por: </label>
 						<div class="ui-inputgroup">
-							<p:inputText placeholder="Nome do produto" />
+							<p:inputText placeholder="Nome do backlog" />
 							<span class="ui-inputgroup-addon"> <p:commandLink>
 									<i class="fa fa-search fonte-dark-grey" />
 								</p:commandLink>
@@ -44,9 +44,9 @@
 				</div>
 
 				<div class="pull-right ShowOnDesktop">
-					<p:button icon="fa fa-plus" value="Novo produto"
-						title="Clique para cadastrar um novo produto"
-						outcome="/private/produto/form.xhtml" />
+					<p:button icon="fa fa-plus" value="Novo backlog"
+						title="Clique para cadastrar um novo backlog"
+						outcome="/private/backlog/form.xhtml" />
 				</div>
 			</div>
 
@@ -57,10 +57,10 @@
 				</div>
 
 				<div class="ui-g-12">
-					<p:dataTable var="produto" value="#{produtoCtrl.produtos}"
+					<p:dataTable var="backlog" value="#{backlogCtrl.backlogs}"
 						lazy="true" paginator="true"
 						emptyMessage="Nenhum registro foi encontrado" rows="25"
-						rowHover="true" sortBy="#{produto.nome}"
+						rowHover="true" sortBy="#{backlog.titulo}"
 						paginatorPosition="bottom" paginatorAlwaysVisible="true"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 						currentPageReportTemplate="({startRecord} - {endRecord} de {totalRecords})"
@@ -68,20 +68,20 @@
 
 						<p:column headerText="Status" styleClass="center " colspan="1">
 
-							<p:commandLink action="#{produtoCtrl.alterarStatus()}"
-								update="@this" title="#{produto.status.descricao}"
+							<p:commandLink action="#{backlogCtrl.alterarStatus()}"
+								update="@this" title="#{backlog.status.descricao}"
 								styleClass="icon-list">
-								<f:setPropertyActionListener value="#{produto}"
-									target="#{produtoCtrl.produto}" />
-								<i class="fa #{produto.status.icone}" style="#{produto.status.cor}" />
+								<f:setPropertyActionListener value="#{backlog}"
+									target="#{backlogCtrl.backlog}" />
+								<i class="fa #{backlog.status.icone}" style="#{backlog.status.cor}" />
 							</p:commandLink>
 						</p:column>
 
-						<p:column headerText="Nome" colspan="6">
-							<p:link outcome="/private/produto/form.xhtml"
+						<p:column headerText="Título" colspan="6">
+							<p:link outcome="/private/backlog/form.xhtml"
 								styleClass="my-link" title="Clique para editar este registro">
-								<f:param name="produto" value="#{produto.id}" />
-								#{produto.nome}
+								<f:param name="backlog" value="#{backlog.id}" />
+								#{backlog.titulo}
 							</p:link>
 						</p:column>
 

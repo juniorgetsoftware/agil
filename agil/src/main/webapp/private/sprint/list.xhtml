@@ -6,23 +6,23 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 	<f:metadata>
-		<f:event type="preRenderView" listener="#{produtoCtrl.listar()}" />
+		<f:event type="preRenderView" listener="#{sprintCtrl.listar()}" />
 	</f:metadata>
 
 	<ui:define name="page-name">
-		Cad. produtos
+		Cad. sprints
 	</ui:define>
 
 	<ui:define name="page-title">
-		Produtos
+		Sprints
 	</ui:define>
 
 	<ui:define name="page-subtitle">
-		Manutenção de produtos
+		Manutenção de sprints
 	</ui:define>
 
 	<ui:define name="page-image">
-		<p:graphicImage library="img" name="box-in.svg" />
+		<p:graphicImage library="img" name="brick.svg" />
 	</ui:define>
 
 	<ui:define name="content">
@@ -34,7 +34,7 @@
 					<div class=" pull-left">
 						<label>Buscar por: </label>
 						<div class="ui-inputgroup">
-							<p:inputText placeholder="Nome do produto" />
+							<p:inputText placeholder="Nome da sprint" />
 							<span class="ui-inputgroup-addon"> <p:commandLink>
 									<i class="fa fa-search fonte-dark-grey" />
 								</p:commandLink>
@@ -44,9 +44,9 @@
 				</div>
 
 				<div class="pull-right ShowOnDesktop">
-					<p:button icon="fa fa-plus" value="Novo produto"
-						title="Clique para cadastrar um novo produto"
-						outcome="/private/produto/form.xhtml" />
+					<p:button icon="fa fa-plus" value="Nova sprint"
+						title="Clique para cadastrar uma nova sprint"
+						outcome="/private/sprint/form.xhtml" />
 				</div>
 			</div>
 
@@ -57,10 +57,10 @@
 				</div>
 
 				<div class="ui-g-12">
-					<p:dataTable var="produto" value="#{produtoCtrl.produtos}"
+					<p:dataTable var="sprint" value="#{sprintCtrl.sprints}"
 						lazy="true" paginator="true"
 						emptyMessage="Nenhum registro foi encontrado" rows="25"
-						rowHover="true" sortBy="#{produto.nome}"
+						rowHover="true" sortBy="#{sprint.nome}"
 						paginatorPosition="bottom" paginatorAlwaysVisible="true"
 						paginatorTemplate="{RowsPerPageDropdown} {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
 						currentPageReportTemplate="({startRecord} - {endRecord} de {totalRecords})"
@@ -68,20 +68,20 @@
 
 						<p:column headerText="Status" styleClass="center " colspan="1">
 
-							<p:commandLink action="#{produtoCtrl.alterarStatus()}"
-								update="@this" title="#{produto.status.descricao}"
+							<p:commandLink action="#{sprintCtrl.alterarStatus()}"
+								update="@this" title="#{sprint.status.descricao}"
 								styleClass="icon-list">
-								<f:setPropertyActionListener value="#{produto}"
-									target="#{produtoCtrl.produto}" />
-								<i class="fa #{produto.status.icone}" style="#{produto.status.cor}" />
+								<f:setPropertyActionListener value="#{sprint}"
+									target="#{sprintCtrl.sprint}" />
+								<i class="fa #{sprint.status.icone}" style="#{sprint.status.cor}" />
 							</p:commandLink>
 						</p:column>
 
 						<p:column headerText="Nome" colspan="6">
-							<p:link outcome="/private/produto/form.xhtml"
+							<p:link outcome="/private/sprint/form.xhtml"
 								styleClass="my-link" title="Clique para editar este registro">
-								<f:param name="produto" value="#{produto.id}" />
-								#{produto.nome}
+								<f:param name="sprint" value="#{sprint.id}" />
+								#{sprint.nome}
 							</p:link>
 						</p:column>
 
