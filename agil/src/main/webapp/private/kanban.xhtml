@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	template="/WEB-INF/template/layout.xhtml">
+
+	<f:metadata>
+		<f:event listener="#{kanbanCtrl.listarBacklogs()}"
+			type="preRenderView" />
+	</f:metadata>
+
+	<ui:define name="page-name">
+		Kanban
+	</ui:define>
+
+	<ui:define name="page-title">
+		Kanban Board
+	</ui:define>
+
+	<ui:define name="page-subtitle">
+		Kanban do projeto #{kanbanCtrl.produto.nome}
+	</ui:define>
+
+	<ui:define name="page-image">
+		<p:graphicImage library="img" name="kanban.svg" />
+	</ui:define>
+
+	<ui:define name="content">
+		<div class="ui-fluid" jsf:id="group">
+
+			<div class="ui-g-12">
+				<p:repeat var="status" value="#{backlogCtrl.listarStatusBacklog()}">
+					<div class="ui-g-1-5">
+						<div class="ui-g-12 ui-shadow">
+							<label>#{status.descricao}</label>
+							<p:repeat var="backlog" value="#{kanbanCtrl.backlogs(status)}">
+								<div class="ui-g-12">
+									<div class="card ui-shadow">
+										<div class="card-title">
+											<label>#{backlog.titulo}</label>
+										</div>
+										<div class="card-content">
+											<i class="fa fa-money" />
+											<p:outputLabel value=" #{backlog.roi.descricao}" />
+											<i class="fa fa-clock-o" />
+											<p:outputLabel value=" #{backlog.tempoEstimado}" />
+
+<!-- 											<div class="ui-g-12 ui-g-nopad"> -->
+<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
+<!-- 													<p:commandButton icon="fa fa-exclamation-triangle" -->
+<!-- 														title="A fazer" styleClass="btn-blue" /> -->
+<!-- 												</div> -->
+
+<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
+<!-- 													<p:commandButton icon="fa fa-exclamation-circle" -->
+<!-- 														title="Fazendo" styleClass="btn-yellow" /> -->
+<!-- 												</div> -->
+
+<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
+<!-- 													<p:commandButton icon="fa fa-check" title="Concluído" -->
+<!-- 														styleClass="btn-green" /> -->
+<!-- 												</div> -->
+
+<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
+<!-- 													<p:commandButton icon="fa fa-trash" title="Cancelar" -->
+<!-- 														styleClass="btn-red" /> -->
+<!-- 												</div> -->
+<!-- 											</div> -->
+										</div>
+									</div>
+								</div>
+							</p:repeat>
+						</div>
+					</div>
+				</p:repeat>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

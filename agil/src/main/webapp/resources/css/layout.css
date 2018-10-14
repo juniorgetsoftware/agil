@@ -640,11 +640,23 @@ li {
 
 .card {
 	padding: 10px;
-	display: block;
+	display: inline-block;
+	display: flow-root;
 	background-color: #ffffff;
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 	-moz-border-radius: 2px;
+}
+
+.card-title {
+    background: #eee;
+    margin: -10px !important;
+    padding: 7px 10px;
+}
+
+.card-content {
+    padding: 10px;
+    margin: 10px 0px 0 -10px !important;
 }
 
 .my-head {
@@ -806,4 +818,11 @@ h1, h2, h3, h4, h5 {
 
 .ui-selectonemenu-panel .ui-selectonemenu-filter-container {
     width: 100% !important;
+}
+
+.ui-g-1-5 {
+	width: 20%;
+	float: left;
+    box-sizing: border-box;
+    padding: .5em;
 }

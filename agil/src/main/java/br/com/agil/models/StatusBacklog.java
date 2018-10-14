@@ -2,11 +2,11 @@ package br.com.agil.models;
 
 public enum StatusBacklog {
 	
-	CANCELADO("Cancelado"), 
+	NAO_ATRIBUIDO("Não atribuído"),
 	A_FAZER ("A fazer"), 
 	EM_ANDAMENTO("Em andamento"), 
 	CONCLUIDO("Concluído"), 
-	NAO_ATRIBUIDO("Não atribuído");
+	CANCELADO("Cancelado"); 
 	
 	private StatusBacklog(String descricao) {
 		this.descricao = descricao;

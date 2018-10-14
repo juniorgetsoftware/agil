@@ -100,6 +100,12 @@
 								<i class="fa fa-trash danger"></i>
 							</p:commandLink>
 
+							<p:link styleClass="my-link icon-list" 
+								title="Ir para o kanban" outcome="/private/kanban.xhtml">
+								<i class="fa fa-th"></i>
+								<f:param name="produto" value="#{produto.id}"/>
+							</p:link>
+
 						</p:column>
 
 					</p:dataTable>
