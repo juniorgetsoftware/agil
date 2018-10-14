@@ -16,6 +16,7 @@ import br.com.agil.controllers.converters.TarefaConverter;
 import br.com.agil.jsf.FacesUtil;
 import br.com.agil.jsf.Msgs;
 import br.com.agil.jsf.primefaces.LazyDataModel;
+import br.com.agil.models.StatusTarefa;
 import br.com.agil.models.Tarefa;
 import br.com.agil.services.TarefaService;
 
@@ -56,7 +57,7 @@ public class TarefaCtrl implements Serializable {
 		msgs.addInfo().statusAlteradoSucesso();
 		facesUtil.atualizarComponente("msgs");
 	}
-	
+
 	public String editar() {
 		tarefaService.editar(tarefa);
 		msgs.addInfo().editadoComSucesso();
@@ -69,6 +70,10 @@ public class TarefaCtrl implements Serializable {
 		if (facesUtil.isNotPostback() || isNull(tarefas)) {
 			this.tarefas = new LazyDataModel<>(tarefaService.getRepository());
 		}
+	}
+
+	public StatusTarefa[] listarStatusTarefa() {
+		return StatusTarefa.values();
 	}
 
 	public Tarefa getTarefa() {
@@ -92,5 +97,4 @@ public class TarefaCtrl implements Serializable {
 	public boolean isEditando() {
 		return nonNull(getTarefa()) && nonNull(getTarefa().getId());
 	}
-
 }

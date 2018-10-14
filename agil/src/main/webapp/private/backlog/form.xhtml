@@ -37,6 +37,7 @@
 			<div class="ui-g-12 ">
 				<p:messages id="msgs" life="7000" showDetail="true"
 					showSummary="true" />
+				<p:growl id="msgs-tarefa" life="5000" />
 			</div>
 
 			<div class="ui-fluid" jsf:id="group">
@@ -97,6 +98,102 @@
 					</div>
 				</div>
 
+
+
+
+				<div class="ui-g-12">
+
+					<label>Tarefas do backlog</label>
+					<p:commandLink styleClass="add fa-2x"
+						title="Clique para adicionar uma atividade">
+						<i class="fa fa-plus"></i>
+					</p:commandLink>
+
+					<h:panelGroup id="backlog-tarefas">
+						<p:repeat var="tarefa" value="#{backlogCtrl.backlog.tarefas}"
+							varStatus="vs">
+
+							<h:panelGroup rendered="#{vs.first}">
+								<div class="ui-g-12 ui-g-nopad ">
+									<div class="ui-g-4">
+										<label>Nome</label>
+									</div>
+
+									<div class="ui-g-2">
+										<label>Status</label>
+									</div>
+
+									<div class="ui-g-5">
+										<label>Descrição</label>
+									</div>
+
+									<div class="ui-g-1">
+										<label>#</label>
+									</div>
+								</div>
+							</h:panelGroup>
+
+							<div
+								class="ui-g-12 ui-g-nopad #{vs.even ? 'bg-light-grey' : 'bg-white'}">
+								<div class="ui-g-4">
+									<p:outputLabel value="#{tarefa.nome}" />
+								</div>
+
+								<div class="ui-g-2">
+									<p:outputLabel value="#{tarefa.statusTarefa.descricao}" />
+								</div>
+
+								<div class="ui-g-5">
+									<p:outputLabel value="#{tarefa.descricao}" />
+								</div>
+
+								<div class="ui-g-1">
+									<p:commandButton icon="fa fa-trash" styleClass="btn-red" process="@this" update="backlog-tarefas"
+										title="Clique para remover esta tarefa" action="#{backlogCtrl.remover()}">
+										<f:setPropertyActionListener value="#{tarefa}" target="#{backlogCtrl.tarefa}" />
+									</p:commandButton>
+								</div>
+							</div>
+						</p:repeat>
+					</h:panelGroup>
+				</div>
+
+
+				<div class="ui-g-12 ui-g-nopad">
+					<h:panelGroup id="backlog-tarefas-add">
+						<div class="ui-g-4">
+							<p:inputText value="#{backlogCtrl.tarefa.nome}" />
+						</div>
+
+						<div class="ui-g-2">
+							<p:selectOneMenu value="#{backlogCtrl.tarefa.statusTarefa}">
+								<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
+								<f:selectItems var="tarefa"
+									value="#{tarefaCtrl.listarStatusTarefa()}"
+									itemLabel="#{tarefa.descricao}" itemValue="#{tarefa}" />
+							</p:selectOneMenu>
+						</div>
+
+						<div class="ui-g-5">
+							<p:inputText value="#{backlogCtrl.tarefa.descricao}" />
+						</div>
+
+						<div class="ui-g-1">
+							<p:commandButton icon="fa fa-plus"
+								title="Clique para adicionar a tarefa"
+								action="#{backlogCtrl.adicionar()}"
+								process="backlog-tarefas-add"
+								update="backlog-tarefas backlog-tarefas-add">
+							</p:commandButton>
+						</div>
+					</h:panelGroup>
+				</div>
+
+
+
+
+
+
 				<div class="ui-g-12">
 					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
 						<label>Descrição</label>
@@ -107,7 +204,6 @@
 						<p:message for="backlog-descricao" />
 					</div>
 				</div>
-
 
 
 				<div class="ui-g-12 ui-g-nopad">

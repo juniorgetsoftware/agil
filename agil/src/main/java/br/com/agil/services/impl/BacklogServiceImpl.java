@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.deltaspike.data.api.EntityRepository;
 
 import br.com.agil.models.Backlog;
+import br.com.agil.models.Produto;
 import br.com.agil.repository.BacklogRepository;
 import br.com.agil.services.BacklogService;
 
@@ -54,5 +55,10 @@ public class BacklogServiceImpl implements BacklogService {
 	public void alterarStatus(Backlog backlog) {
 		backlog.alterarStatus();
 		this.editar(backlog);
+	}
+
+	@Override
+	public List<Backlog> backlogsPorProduto(Produto produto) {
+		return backlogRepository.findByProduto(produto);
 	}
 }

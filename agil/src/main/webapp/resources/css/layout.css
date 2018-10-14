@@ -428,6 +428,22 @@ li {
 	font-weight: bold;
 }
 
+.bg-white:hover, .bg-light-grey:hover {
+    background: #eeeeee;
+    transition: .5s;
+}
+
+.bg-light-grey {
+    background: #f6f6f6;
+    transition: .5s;
+}
+
+.bg-white {
+    transition: .5s;
+	
+}
+
+
 .bg-green {
 	background: #4CAF50;
 }

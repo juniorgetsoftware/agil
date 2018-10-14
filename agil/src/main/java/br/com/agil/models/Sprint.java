@@ -10,8 +10,9 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -40,7 +41,9 @@ public class Sprint extends EntidadeBase implements Serializable {
 	@Column(nullable = false)
 	private String nome;
 
-	@OneToMany(targetEntity = Backlog.class)
+	@ManyToMany(targetEntity = Backlog.class)
+	@JoinTable(name = "sprint_backlog", joinColumns = { @JoinColumn(name = "sprint_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "backlog_id") })
 	private List<Backlog> backlogs;
 
 	@ManyToOne(targetEntity = Produto.class)

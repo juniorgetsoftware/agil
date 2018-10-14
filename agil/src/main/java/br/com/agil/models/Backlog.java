@@ -2,8 +2,10 @@ package br.com.agil.models;
 
 import static br.com.agil.models.ROI.MEDIO;
 import static br.com.agil.models.StatusBacklog.NAO_ATRIBUIDO;
+import static java.util.Objects.isNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -45,8 +48,9 @@ public class Backlog extends EntidadeBase implements Serializable {
 	@JoinColumn(name = "produto_id", nullable = false)
 	private Produto produto;
 
-	@ManyToOne(targetEntity = Produto.class)
-	@JoinColumn(name = "sprint_id")
+	@ManyToOne(targetEntity = Sprint.class)
+	@JoinTable(name = "sprint_backlog", joinColumns = { @JoinColumn(name = "sprint_id") }, inverseJoinColumns = {
+			@JoinColumn(name = "backlog_id") })
 	private Sprint sprint;
 
 	@OneToMany(cascade = CascadeType.ALL, targetEntity = Tarefa.class, mappedBy = "backlog", orphanRemoval = true)
@@ -81,6 +85,8 @@ public class Backlog extends EntidadeBase implements Serializable {
 	}
 
 	public List<Tarefa> getTarefas() {
+		if (isNull(tarefas))
+			tarefas = new ArrayList<>();
 		return tarefas;
 	}
 
@@ -126,6 +132,31 @@ public class Backlog extends EntidadeBase implements Serializable {
 
 	public void setStatusBacklog(StatusBacklog statusBacklog) {
 		this.statusBacklog = statusBacklog;
+	}
+
+	public void adicionar(Tarefa tarefa) {
+		if (isNull(tarefa))
+			throw new RuntimeException("Tarefa não pode ser nulo");
+		tarefa.setBacklog(this);
+		this.getTarefas().add(tarefa);
+		tarefa = null;
+	}
+
+	public void atualizar(Tarefa tarefa) {
+		if (isNull(tarefa))
+			throw new RuntimeException("Tarefa não pode ser nulo");
+		tarefa.setBacklog(this);
+		int index = this.getTarefas().indexOf(tarefa);
+		this.getTarefas().set(index, tarefa);
+		tarefa = null;
+	}
+
+	public void remover(Tarefa tarefa) {
+		if (isNull(tarefa))
+			throw new RuntimeException("Tarefa não pode ser nulo");
+		this.getTarefas().remove(tarefa);
+		tarefa.setBacklog(null);
+		tarefa = null;
 	}
 
 }

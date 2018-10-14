@@ -4,6 +4,7 @@ import static java.util.Objects.isNull;
 import static java.util.Objects.nonNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -17,8 +18,10 @@ import br.com.agil.jsf.FacesUtil;
 import br.com.agil.jsf.Msgs;
 import br.com.agil.jsf.primefaces.LazyDataModel;
 import br.com.agil.models.Backlog;
+import br.com.agil.models.Produto;
 import br.com.agil.models.ROI;
 import br.com.agil.models.StatusBacklog;
+import br.com.agil.models.Tarefa;
 import br.com.agil.services.BacklogService;
 
 @Named
@@ -35,6 +38,8 @@ public class BacklogCtrl implements Serializable {
 	private Backlog backlog;
 
 	private LazyDataModel<Backlog, Long> backlogs;
+	private List<Backlog> backlogList;
+	private Produto produto;
 
 	@Inject
 	private JsfMessage<Msgs> msgs;
@@ -44,6 +49,8 @@ public class BacklogCtrl implements Serializable {
 
 	@Inject
 	private FacesUtil facesUtil;
+
+	private Tarefa tarefa;
 
 	public String salvar() {
 		backlogService.salvar(backlog);
@@ -58,7 +65,7 @@ public class BacklogCtrl implements Serializable {
 		msgs.addInfo().statusAlteradoSucesso();
 		facesUtil.atualizarComponente("msgs");
 	}
-	
+
 	public String editar() {
 		backlogService.editar(backlog);
 		msgs.addInfo().editadoComSucesso();
@@ -72,7 +79,19 @@ public class BacklogCtrl implements Serializable {
 			this.backlogs = new LazyDataModel<>(backlogService.getRepository());
 		}
 	}
-	
+
+	public void listarSemDemanda() {
+		if (facesUtil.isNotPostback() || isNull(backlogList)) {
+			this.backlogList = backlogService.listar();
+		}
+	}
+
+	public void listarBacklogsPorProduto() {
+		if (facesUtil.isNotPostback() || isNull(backlogList)) {
+			this.backlogList = backlogService.backlogsPorProduto(produto);
+		}
+	}
+
 	public StatusBacklog[] listarStatusBacklog() {
 		return StatusBacklog.values();
 	}
@@ -103,4 +122,50 @@ public class BacklogCtrl implements Serializable {
 		return nonNull(getBacklog()) && nonNull(getBacklog().getId());
 	}
 
+	public Tarefa getTarefa() {
+		if (isNull(tarefa))
+			tarefa = new Tarefa();
+		return tarefa;
+	}
+
+	public void setTarefa(Tarefa tarefa) {
+		this.tarefa = tarefa;
+	}
+
+	public void adicionar() {
+		this.backlog.adicionar(tarefa);
+		msgs.addInfo().tarefaCadastradaComSucesso();
+		facesUtil.atualizarComponente("msgs-tarefa");
+		tarefa = new Tarefa();
+	}
+
+	public void atualizar() {
+		this.backlog.atualizar(tarefa);
+		msgs.addInfo().tarefaEditadaComSucesso();
+		facesUtil.atualizarComponente("msgs-tarefa");
+		tarefa = new Tarefa();
+	}
+
+	public void remover() {
+		this.backlog.remover(tarefa);
+		msgs.addInfo().tarefaDeletadaComSucesso();
+		facesUtil.atualizarComponente("msgs-tarefa");
+		tarefa = new Tarefa();
+	}
+
+	public List<Backlog> getBacklogList() {
+		return backlogList;
+	}
+
+	public void setBacklogList(List<Backlog> backlogList) {
+		this.backlogList = backlogList;
+	}
+
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
+	}
 }

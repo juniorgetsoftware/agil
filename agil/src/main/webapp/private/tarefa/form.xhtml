@@ -8,6 +8,10 @@
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	template="/WEB-INF/template/layout.xhtml">
 
+	<f:metadata>
+		<f:event listener="#{produtoCtrl.listarSemDemanda()}" type="preRenderView"></f:event>
+	</f:metadata>
+
 	<ui:define name="page-name">
 		Tarefa
 	</ui:define>
@@ -40,10 +44,59 @@
 					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
 						<label>Nome</label>
 						<p:inputText id="tarefa-nome" value="#{tarefaCtrl.tarefa.nome}"
-							required="true" label="Nome" styleClass="form-control">
+							required="true" label="Nome">
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="tarefa-nome" />
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label>Produto</label>
+						<p:selectOneMenu id="tarefa-produto" value="#{backlogCtrl.produto}" required="true">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+							<f:selectItems var="produto" value="#{produtoCtrl.produtosList}" 
+								itemLabel="#{produto.nome}" itemValue="#{produto}"/>
+							<p:ajax process="@this tarefa-produto" listener="#{backlogCtrl.listarBacklogsPorProduto()}" 
+								update="tarefa-backlog"/>
+						</p:selectOneMenu>
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label>Backlog</label>
+						<p:selectOneMenu id="tarefa-backlog" value="#{tarefaCtrl.tarefa.backlog}" required="true">
+							<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+							<f:selectItems var="backlog" value="#{backlogCtrl.backlogList}" 
+								itemLabel="#{backlog.titulo}" itemValue="#{backlog}"/>
+						</p:selectOneMenu>
+					</div>
+				</div>
+					
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label>Status da tarefa</label>
+						<p:selectOneRadio id="tarefa-status" label="Status da tarefa"
+							value="#{tarefaCtrl.tarefa.statusTarefa}" required="true">
+							<f:selectItems var="status"
+								value="#{tarefaCtrl.listarStatusTarefa()}"
+								itemLabel="#{status.descricao}" itemValue="#{status}" />
+						</p:selectOneRadio>
+						<p:message for="tarefa-status"/>
+					</div>
+				</div>
+
+				<div class="ui-g-12">
+					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
+						<label>Descrição</label>
+						<p:inputTextarea id="tarefa-descricao"
+							value="#{tarefaCtrl.tarefa.descricao}" required="true"
+							label="Descrição">
+							<p:clientValidator event="keyup" />
+						</p:inputTextarea>
+						<p:message for="tarefa-descricao" />
 					</div>
 				</div>
 

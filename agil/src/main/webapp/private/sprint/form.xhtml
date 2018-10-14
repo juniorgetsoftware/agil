@@ -45,7 +45,7 @@
 					<div class="ui-g-6 ui-lg-6 ui-md-8 ui-sm-12 ui-g-nopad">
 						<label>Nome</label>
 						<p:inputText id="sprint-nome" value="#{sprintCtrl.sprint.nome}"
-							required="true" label="Nome" styleClass="form-control">
+							required="true" label="Nome" >
 							<p:clientValidator event="keyup" />
 						</p:inputText>
 						<p:message for="sprint-nome" />
@@ -89,7 +89,7 @@
 
 				<div class="ui-g-12">
 					<label>Backlog da sprint</label>
-					<p:commandLink styleClass="icon-list add"
+					<p:commandLink styleClass="fa-2x add"
 						title="Clique para adicionar backlogs"
 						action="#{backlogCtrl.listar()}" process="@this"
 						oncomplete="PF('backlog-dlg').show()" update="backlog-dlg">

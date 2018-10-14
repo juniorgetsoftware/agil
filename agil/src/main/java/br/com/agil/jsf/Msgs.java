@@ -17,7 +17,16 @@ public interface Msgs {
 
 	@MessageTemplate("{deletado.sucesso}")
 	String deletadoComSucesso();
-	
+
 	@MessageTemplate("{status.alterado.sucesso}")
 	String statusAlteradoSucesso();
+
+	@MessageTemplate("{tarefa.cadastrada.sucesso}")
+	String tarefaCadastradaComSucesso();
+
+	@MessageTemplate("{tarefa.editada.sucesso}")
+	String tarefaEditadaComSucesso();
+
+	@MessageTemplate("{tarefa.deletada.sucesso}")
+	String tarefaDeletadaComSucesso();
 }

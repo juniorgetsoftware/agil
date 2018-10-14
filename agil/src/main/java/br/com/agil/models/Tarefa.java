@@ -73,5 +73,4 @@ public class Tarefa extends EntidadeBase implements Serializable {
 	public void setBacklog(Backlog backlog) {
 		this.backlog = backlog;
 	}
-
 }
