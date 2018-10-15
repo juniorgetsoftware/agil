@@ -58,6 +58,36 @@ public class BacklogServiceImpl implements BacklogService {
 	}
 
 	@Override
+	public void statusAFazer(Backlog backlog) {
+		backlog.statusAFazer();
+		this.editar(backlog);
+	}
+
+	@Override
+	public void statusCancelar(Backlog backlog) {
+		backlog.statusCancelar();
+		this.editar(backlog);
+	}
+
+	@Override
+	public void statusConcluido(Backlog backlog) {
+		backlog.statusConcluido();
+		this.editar(backlog);
+	}
+
+	@Override
+	public void statusEmAndamento(Backlog backlog) {
+		backlog.statusEmAndamento();
+		this.editar(backlog);
+	}
+
+	@Override
+	public void statusNaoAtribuido(Backlog backlog) {
+		backlog.statusNaoAtribuido();
+		this.editar(backlog);
+	}
+
+	@Override
 	public List<Backlog> backlogsPorProduto(Produto produto) {
 		return backlogRepository.findByProduto(produto);
 	}

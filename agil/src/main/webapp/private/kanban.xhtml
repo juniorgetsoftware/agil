@@ -30,55 +30,104 @@
 	</ui:define>
 
 	<ui:define name="content">
-		<div class="ui-fluid" jsf:id="group">
 
-			<div class="ui-g-12">
-				<p:repeat var="status" value="#{backlogCtrl.listarStatusBacklog()}">
-					<div class="ui-g-1-5">
-						<div class="ui-g-12 ui-shadow">
-							<label>#{status.descricao}</label>
-							<p:repeat var="backlog" value="#{kanbanCtrl.backlogs(status)}">
-								<div class="ui-g-12">
-									<div class="card ui-shadow">
-										<div class="card-title">
-											<label>#{backlog.titulo}</label>
+		<h:form prependId="false">
+
+			<div class="ui-fluid">
+
+				<p:growl id="msgs" life="5000" />
+
+				<div class="ui-g-12">
+
+					<h:panelGroup id="group">
+
+						<p:repeat var="status"
+							value="#{backlogCtrl.listarStatusBacklog()}">
+							<div class="ui-g-1-5">
+								<div class="ui-g-12 ui-shadow">
+									<label>#{status.descricao}</label>
+									<p:repeat var="backlog" value="#{kanbanCtrl.backlogs(status)}">
+										<div class="ui-g-12">
+
+											<div class="card ui-shadow">
+
+												<div class="card-title">
+													<label>#{backlog.titulo}</label>
+												</div>
+
+												<div class="card-content">
+													<i class="fa fa-money" />
+													<p:outputLabel value=" #{backlog.roi.descricao}" />
+													<i class="fa fa-clock-o" />
+													<p:outputLabel value=" #{backlog.tempoEstimado}" />
+												</div>
+
+												<div class="ui-g-12 ui-g-nopad">
+
+													<div class="ui-g-1-5 ui-g-nopad">
+														<p:commandButton icon="fa fa-question"
+															styleClass="btn-grey"
+															action="#{kanbanCtrl.statusNaoAtribuido()}"
+															process="@this" update="group" title="Não atribuído">
+															<f:setPropertyActionListener value="#{backlog}"
+																target="#{kanbanCtrl.backlog}" />
+														</p:commandButton>
+													</div>
+
+													<div class="ui-g-1-5 ui-g-nopad">
+														<p:commandButton icon="fa fa-warning"
+															styleClass="btn-yellow"
+															action="#{kanbanCtrl.statusAFazer()}" process="@this"
+															update="group" title="A fazer">
+															<f:setPropertyActionListener value="#{backlog}"
+																target="#{kanbanCtrl.backlog}" />
+														</p:commandButton>
+													</div>
+
+													<div class="ui-g-1-5 ui-g-nopad">
+														<p:commandButton icon="fa fa-refresh"
+															styleClass="btn-blue"
+															action="#{kanbanCtrl.statusEmAndamento()}"
+															process="@this" update="group" title="Em andamento">
+															<f:setPropertyActionListener value="#{backlog}"
+																target="#{kanbanCtrl.backlog}" />
+														</p:commandButton>
+													</div>
+
+													<div class="ui-g-1-5 ui-g-nopad">
+														<p:commandButton icon="fa fa-check" styleClass="btn-green"
+															action="#{kanbanCtrl.statusConcluido()}" process="@this"
+															update="group" title="Concluído">
+															<f:setPropertyActionListener value="#{backlog}"
+																target="#{kanbanCtrl.backlog}" />
+														</p:commandButton>
+													</div>
+
+													<div class="ui-g-1-5 ui-g-nopad">
+														<p:commandButton icon="fa fa-ban" styleClass="btn-red"
+															action="#{kanbanCtrl.statusCancelar()}" process="@this"
+															update="group" title="Cancelar">
+															<f:setPropertyActionListener value="#{backlog}"
+																target="#{kanbanCtrl.backlog}" />
+														</p:commandButton>
+													</div>
+
+												</div>
+
+											</div>
+
 										</div>
-										<div class="card-content">
-											<i class="fa fa-money" />
-											<p:outputLabel value=" #{backlog.roi.descricao}" />
-											<i class="fa fa-clock-o" />
-											<p:outputLabel value=" #{backlog.tempoEstimado}" />
-
-<!-- 											<div class="ui-g-12 ui-g-nopad"> -->
-<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
-<!-- 													<p:commandButton icon="fa fa-exclamation-triangle" -->
-<!-- 														title="A fazer" styleClass="btn-blue" /> -->
-<!-- 												</div> -->
-
-<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
-<!-- 													<p:commandButton icon="fa fa-exclamation-circle" -->
-<!-- 														title="Fazendo" styleClass="btn-yellow" /> -->
-<!-- 												</div> -->
-
-<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
-<!-- 													<p:commandButton icon="fa fa-check" title="Concluído" -->
-<!-- 														styleClass="btn-green" /> -->
-<!-- 												</div> -->
-
-<!-- 												<div class="ui-g-3 ui-g-nopad"> -->
-<!-- 													<p:commandButton icon="fa fa-trash" title="Cancelar" -->
-<!-- 														styleClass="btn-red" /> -->
-<!-- 												</div> -->
-<!-- 											</div> -->
-										</div>
-									</div>
+									</p:repeat>
 								</div>
-							</p:repeat>
-						</div>
-					</div>
-				</p:repeat>
+							</div>
+						</p:repeat>
+
+					</h:panelGroup>
+
+				</div>
 			</div>
-		</div>
+
+		</h:form>
 
 	</ui:define>
 </ui:composition>

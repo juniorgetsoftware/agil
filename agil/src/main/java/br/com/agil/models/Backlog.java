@@ -133,6 +133,26 @@ public class Backlog extends EntidadeBase implements Serializable {
 	public void setStatusBacklog(StatusBacklog statusBacklog) {
 		this.statusBacklog = statusBacklog;
 	}
+	
+	public void statusAFazer() {
+		this.statusBacklog = StatusBacklog.A_FAZER;
+	}
+
+	public void statusCancelar() {
+		this.statusBacklog = StatusBacklog.CANCELADO;
+	}
+
+	public void statusConcluido() {
+		this.statusBacklog = StatusBacklog.CONCLUIDO;
+	}
+
+	public void statusEmAndamento() {
+		this.statusBacklog = StatusBacklog.EM_ANDAMENTO;
+	}
+
+	public void statusNaoAtribuido() {
+		this.statusBacklog = StatusBacklog.NAO_ATRIBUIDO;
+	}
 
 	public void adicionar(Tarefa tarefa) {
 		if (isNull(tarefa))
