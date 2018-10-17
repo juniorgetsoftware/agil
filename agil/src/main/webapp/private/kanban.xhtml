@@ -45,17 +45,22 @@
 							value="#{backlogCtrl.listarStatusBacklog()}">
 							<div class="ui-g-1-5">
 								<div class="ui-g-12 ui-shadow">
-									<label>#{status.descricao}</label>
+									<div class="center">
+										<h3><label>#{status.descricao}</label></h3>
+									</div>
 									<p:repeat var="backlog" value="#{kanbanCtrl.backlogs(status)}">
 										<div class="ui-g-12">
 
 											<div class="card ui-shadow">
 
-												<div class="card-title">
+												<div class="card-title center">
 													<label>#{backlog.titulo}</label>
 												</div>
 
 												<div class="card-content">
+												
+												<p:outputLabel value="#{backlog.descricao}"/>
+												
 													<i class="fa fa-money" />
 													<p:outputLabel value=" #{backlog.roi.descricao}" />
 													<i class="fa fa-clock-o" />
@@ -65,8 +70,8 @@
 												<div class="ui-g-12 ui-g-nopad">
 
 													<div class="ui-g-1-5 ui-g-nopad">
-														<p:commandButton icon="fa fa-question"
-															styleClass="btn-grey"
+														<p:commandButton icon="fa fa-th"
+															styleClass="btn-grey" rendered="#{not backlog.statusNaoAtribuido}"
 															action="#{kanbanCtrl.statusNaoAtribuido()}"
 															process="@this" update="group" title="Não atribuído">
 															<f:setPropertyActionListener value="#{backlog}"
@@ -76,7 +81,7 @@
 
 													<div class="ui-g-1-5 ui-g-nopad">
 														<p:commandButton icon="fa fa-warning"
-															styleClass="btn-yellow"
+															styleClass="btn-yellow" rendered="#{not backlog.statusAFazer}"
 															action="#{kanbanCtrl.statusAFazer()}" process="@this"
 															update="group" title="A fazer">
 															<f:setPropertyActionListener value="#{backlog}"
@@ -86,7 +91,7 @@
 
 													<div class="ui-g-1-5 ui-g-nopad">
 														<p:commandButton icon="fa fa-refresh"
-															styleClass="btn-blue"
+															styleClass="btn-blue" rendered="#{not backlog.statusEmAndamento}"
 															action="#{kanbanCtrl.statusEmAndamento()}"
 															process="@this" update="group" title="Em andamento">
 															<f:setPropertyActionListener value="#{backlog}"
@@ -97,7 +102,7 @@
 													<div class="ui-g-1-5 ui-g-nopad">
 														<p:commandButton icon="fa fa-check" styleClass="btn-green"
 															action="#{kanbanCtrl.statusConcluido()}" process="@this"
-															update="group" title="Concluído">
+															update="group" title="Concluído" rendered="#{not backlog.statusConcluido}">
 															<f:setPropertyActionListener value="#{backlog}"
 																target="#{kanbanCtrl.backlog}" />
 														</p:commandButton>
@@ -106,7 +111,7 @@
 													<div class="ui-g-1-5 ui-g-nopad">
 														<p:commandButton icon="fa fa-ban" styleClass="btn-red"
 															action="#{kanbanCtrl.statusCancelar()}" process="@this"
-															update="group" title="Cancelar">
+															update="group" title="Cancelar" rendered="#{not backlog.statusCancelar}">
 															<f:setPropertyActionListener value="#{backlog}"
 																target="#{kanbanCtrl.backlog}" />
 														</p:commandButton>

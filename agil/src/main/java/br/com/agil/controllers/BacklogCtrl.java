@@ -152,6 +152,10 @@ public class BacklogCtrl implements Serializable {
 		facesUtil.atualizarComponente("msgs-tarefa");
 		tarefa = new Tarefa();
 	}
+	
+	public int[] estimativas() {
+		return new int[] { 1, 2, 3, 5, 8, 13, 20, 40 };
+	}
 
 	public List<Backlog> getBacklogList() {
 		return backlogList;

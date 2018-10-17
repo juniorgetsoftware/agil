@@ -1,6 +1,10 @@
 package br.com.agil.models;
 
 import static br.com.agil.models.ROI.MEDIO;
+import static br.com.agil.models.StatusBacklog.A_FAZER;
+import static br.com.agil.models.StatusBacklog.CANCELADO;
+import static br.com.agil.models.StatusBacklog.CONCLUIDO;
+import static br.com.agil.models.StatusBacklog.EM_ANDAMENTO;
 import static br.com.agil.models.StatusBacklog.NAO_ATRIBUIDO;
 import static java.util.Objects.isNull;
 
@@ -133,7 +137,7 @@ public class Backlog extends EntidadeBase implements Serializable {
 	public void setStatusBacklog(StatusBacklog statusBacklog) {
 		this.statusBacklog = statusBacklog;
 	}
-	
+
 	public void statusAFazer() {
 		this.statusBacklog = StatusBacklog.A_FAZER;
 	}
@@ -152,6 +156,26 @@ public class Backlog extends EntidadeBase implements Serializable {
 
 	public void statusNaoAtribuido() {
 		this.statusBacklog = StatusBacklog.NAO_ATRIBUIDO;
+	}
+
+	public boolean isStatusAFazer() {
+		return this.statusBacklog.equals(A_FAZER);
+	}
+
+	public boolean isStatusCancelar() {
+		return this.statusBacklog.equals(CANCELADO);
+	}
+
+	public boolean isStatusConcluido() {
+		return this.statusBacklog.equals(CONCLUIDO);
+	}
+
+	public boolean isStatusEmAndamento() {
+		return this.statusBacklog.equals(EM_ANDAMENTO);
+	}
+
+	public boolean isStatusNaoAtribuido() {
+		return this.statusBacklog.equals(NAO_ATRIBUIDO);
 	}
 
 	public void adicionar(Tarefa tarefa) {

@@ -56,22 +56,25 @@
 
 				<div class="ui-g-4 ui-lg-4 ui-md-8 ui-sm-12 ">
 					<label>Produto</label>
-					<p:selectOneMenu id="backlog-produto"
+					<p:selectOneMenu id="backlog-produto" required="true"
 						value="#{backlogCtrl.backlog.produto}" filter="true"
-						filterMatchMode="contains">
+						filterMatchMode="contains" label="Produto">
 						<f:selectItem itemLabel="Selecione" noSelectionOption="true" />
 						<f:selectItems value="#{produtoCtrl.produtosList}" var="produto"
 							itemLabel="#{produto.nome}" itemValue="#{produto}" />
 					</p:selectOneMenu>
+					<p:message for="backlog-produto" />
 				</div>
 
 				<div class="ui-g-2 ui-lg-2 ui-md-4 ui-sm-12 ">
 					<label>Tempo estimado</label>
-					<p:inputText id="backlog-tempo-estimado"
+					<p:selectOneMenu id="backlog-tempo-estimado"
 						value="#{backlogCtrl.backlog.tempoEstimado}" required="true"
 						label="Tempo estimado">
+						<f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+						<f:selectItems var="estimado" value="#{backlogCtrl.estimativas()}" itemLabel="#{estimado}" itemValue="#{estimado}"/>
 						<p:clientValidator event="keyup" />
-					</p:inputText>
+					</p:selectOneMenu>
 					<p:message for="backlog-tempo-estimado" />
 				</div>
 
@@ -104,10 +107,6 @@
 				<div class="ui-g-12">
 
 					<label>Tarefas do backlog</label>
-					<p:commandLink styleClass="add fa-2x"
-						title="Clique para adicionar uma atividade">
-						<i class="fa fa-plus"></i>
-					</p:commandLink>
 
 					<h:panelGroup id="backlog-tarefas">
 						<p:repeat var="tarefa" value="#{backlogCtrl.backlog.tarefas}"
